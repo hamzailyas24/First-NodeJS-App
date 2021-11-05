@@ -8,7 +8,6 @@ const getUsers = () => {
     console.log(users);
 
     if (response.data.length === 0) {
-      //   alert("No Users");
       responseDiv.innerHTML = "No Users";
     } else {
       const usersList = users.map((user) => {
@@ -40,8 +39,7 @@ const addUser = () => {
     };
 
     axios.post(addUserURL, userData).then((response) => {
-      //   alert("User Added");
-      responseDiv.innerHTML = "User Added";
+      alert(`${userData.name} is Added`);
       getUsers();
     });
   }
