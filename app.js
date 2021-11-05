@@ -1,6 +1,6 @@
 const responseDiv = document.getElementById("response-div");
 
-function getUsers() {
+const getUsers = () => {
   const URL = "https://hamzailyas-nodejs.herokuapp.com/users";
 
   axios.get(URL).then((response) => {
@@ -20,9 +20,9 @@ function getUsers() {
       resultDiv.innerHTML = usersList.join("");
     }
   });
-}
+};
 
-function addUser() {
+const addUser = () => {
   const name = document.getElementById("name").value;
   const email = document.getElementById("email").value;
   const address = document.getElementById("address").value;
@@ -43,7 +43,7 @@ function addUser() {
       location.reload();
     });
   }
-}
+};
 
 // function updateUser() {
 
