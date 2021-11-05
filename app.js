@@ -17,6 +17,8 @@ const getUsers = () => {
 
       const resultDiv = document.getElementById("result-div");
 
+      resultDiv.innerHTML = ""
+
       resultDiv.innerHTML = usersList.join("");
     }
   });
@@ -40,7 +42,7 @@ const addUser = () => {
     axios.post(addUserURL, userData).then((response) => {
       //   alert("User Added");
       responseDiv.innerHTML = "User Added";
-      location.reload();
+      getUsers();
     });
   }
 };
