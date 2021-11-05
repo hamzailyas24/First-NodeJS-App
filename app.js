@@ -44,3 +44,28 @@ function addUser() {
     });
   }
 }
+
+// function updateUser() {
+
+//   const name = document.getElementById("name").value;
+//   const email = document.getElementById("email").value;
+//   const address = document.getElementById("address").value;
+//   const updateUserURL = "https://hamzailyas-nodejs.herokuapp.com/user";
+
+//   if (name === "" || email === "" || address === "") {
+//     alert("Please Fill All the Fields");
+//   } else {
+//     const userData = {
+//       name: name,
+//       email: email,
+//       address: address,
+//     };
+
+//     axios.put(updateUserURL, userData).then((response) => {
+//       //   alert("User Updated");
+//       responseDiv.innerHTML = "User Updated";
+//       location.reload();
+//     });
+//   }
+
+// }
