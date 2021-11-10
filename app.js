@@ -11,7 +11,7 @@ const getUsers = () => {
       responseDiv.innerHTML = "No Users";
     } else {
       const usersList = users.map((user) => {
-        return `<tr><td>${user.name}</td><td>${user.email}</td><td>${user.address}</td></tr>`;
+        return `<tr><td>${user._id}</td><td>${user.name}</td><td>${user.email}</td><td>${user.address}</td></tr>`;
       });
 
       const resultDiv = document.getElementById("result-div");
@@ -45,27 +45,49 @@ const addUser = () => {
   }
 };
 
-// function updateUser() {
+function updateUser() {
 
-//   const name = document.getElementById("name").value;
-//   const email = document.getElementById("email").value;
-//   const address = document.getElementById("address").value;
-//   const updateUserURL = "https://hamzailyas-nodejs.herokuapp.com/user";
+  const id = document.getElementById("id").value;
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const address = document.getElementById("address").value;
+  const updateUserURL = `https://hamzailyas-nodejs.herokuapp.com/user/${id}`;
 
-//   if (name === "" || email === "" || address === "") {
-//     alert("Please Fill All the Fields");
-//   } else {
-//     const userData = {
-//       name: name,
-//       email: email,
-//       address: address,
-//     };
+  if (name === "" || email === "" || address === "" || id === "") {
+    alert("Please Fill All the Fields");
+  } else {
+    const userData = {
+      id: id,
+      name: name,
+      email: email,
+      address: address,
+    };
 
-//     axios.put(updateUserURL, userData).then((response) => {
-//       //   alert("User Updated");
-//       responseDiv.innerHTML = "User Updated";
-//       location.reload();
-//     });
-//   }
+    axios.put(updateUserURL, userData).then((response) => {
+      alert(`${userData.name} is Updated`);
+      getUsers();
+    });
+  }
 
-// }
+}
+
+function deleteUser() {
+
+  let id = document.getElementById("id").value;
+  console.log(id);
+  const deleteUserURL = `https://hamzailyas-nodejs.herokuapp.com/user/${id}`;
+
+  if (id === "") {
+    alert("Please Enter ID");
+  } else {
+    const userData = {
+      id: id
+    };
+
+    axios.delete(deleteUserURL, userData).then((response) => {
+      alert(`${userData.name} is Deleted`);
+      getUsers();
+    });
+  }
+
+}
