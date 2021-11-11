@@ -1,22 +1,22 @@
 const responseDiv = document.getElementById("response-div");
+const resultDiv = document.getElementById("result-div");
 
 const getUsers = () => {
   const URL = "https://hamzailyas-nodejs.herokuapp.com/users";
 
   axios.get(URL).then((response) => {
     const users = response.data;
-    console.log(users);
 
     if (response.data.length === 0) {
       responseDiv.innerHTML = "No Users";
     } else {
+      responseDiv.innerHTML = "";
+
       const usersList = users.map((user) => {
-        return `<tr><td>${user._id}</td><td>${user.name}</td><td>${user.email}</td><td>${user.address}</td></tr>`;
+        return `<tr><td>${user._id}</td><td>${user.name}</td><td>${user.email}</td><td>${user.address}</td><td><button class="btn btn-primary" onclick="editUser('${user._id}')">Edit</button></td><td><button class="btn btn-danger" onclick="deleteUser('${user._id}')">Delete</button></td></tr>`;
       });
 
-      const resultDiv = document.getElementById("result-div");
-
-      resultDiv.innerHTML = ""
+      resultDiv.innerHTML = "";
 
       resultDiv.innerHTML = usersList.join("");
     }
@@ -41,53 +41,26 @@ const addUser = () => {
     axios.post(addUserURL, userData).then((response) => {
       alert(`${userData.name} is Added`);
       getUsers();
+      const name = document.getElementById("name").value = "";
+      const email = document.getElementById("email").value = "";
+      const address = document.getElementById("address").value = "";
     });
   }
 };
 
-function updateUser() {
+function deleteUser(_id) {
+  const deleteUserURL = `https://hamzailyas-nodejs.herokuapp.com/user/${_id}`;
 
-  const id = document.getElementById("id").value;
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  const address = document.getElementById("address").value;
-  const updateUserURL = `https://hamzailyas-nodejs.herokuapp.com/user/${id}`;
+  axios.delete(deleteUserURL).then((res) => {
+    alert(`User Deleted Successfully`);
 
-  if (name === "" || email === "" || address === "" || id === "") {
-    alert("Please Fill All the Fields");
-  } else {
-    const userData = {
-      id: id,
-      name: name,
-      email: email,
-      address: address,
-    };
+    resultDiv.innerHTML = "";
 
-    axios.put(updateUserURL, userData).then((response) => {
-      alert(`${userData.name} is Updated`);
-      getUsers();
-    });
-  }
-
+    getUsers();
+  });
 }
 
-function deleteUser() {
+// function editUser(_id) {
 
-  let id = document.getElementById("id").value;
-  console.log(id);
-  const deleteUserURL = `https://hamzailyas-nodejs.herokuapp.com/user/${id}`;
-
-  if (id === "") {
-    alert("Please Enter ID");
-  } else {
-    const userData = {
-      id: id
-    };
-
-    axios.delete(deleteUserURL, userData).then((response) => {
-      alert(`${userData.name} is Deleted`);
-      getUsers();
-    });
-  }
-
-}
+  
+// }
