@@ -52,10 +52,19 @@ const addUser = () => {
 };
 
 const deleteUser = (_id) => {
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const address = document.getElementById("address").value;
   const deleteUserURL = `https://hamzailyas-nodejs.herokuapp.com/user/${_id}`;
 
-  axios.delete(deleteUserURL).then((res) => {
-    alert(`User Deleted Successfully`);
+  const userData = {
+    name: name,
+    email: email,
+    address: address,
+  };
+
+  axios.delete(deleteUserURL, userData).then((res) => {
+    alert(`${userData.name} User Deleted Successfully`);
 
     resultDiv.innerHTML = "";
 
@@ -67,7 +76,7 @@ const editUser = (_id, index) => {
   const userObject = users[index];
 
   resultDiv.innerHTML = `<tr id="${_id}">
-  <th scope="row">${_id}</th>
+  <td id=${_id}> ${index} </td>
   <td><input class="form-control shadow-none" type="text" id="${_id}-name" value="${userObject.name}" /></td>
   <td><input class="form-control shadow-none" type="text" id="${_id}-email" value="${userObject.email}" /></td>
   <td><input class="form-control shadow-none" type="text" id="${_id}-address" value="${userObject.address}" /></td>
@@ -90,7 +99,7 @@ const updateUser = (_id) => {
   };
 
   axios.put(updateUserURL, userData).then((res) => {
-    alert(`${userData.id} is Updated`);
+    alert(`${userData.name} is Updated`);
     getUsers();
   });
 };
